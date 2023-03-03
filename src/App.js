@@ -4,25 +4,27 @@ import { useState } from 'react';
 
 function App() {
   const [followerCounter, setFollowerCounter] = useState(100500);
-   const [isMouseDown, setIsMouseDown] = useState(false);
+  const [isMouseDown, setIsMouseDown] = useState(false);
 
-   const handleMouseDown = () => {
-     setIsMouseDown(true);
-   };
+  const handleMouseDown = () => {
+    setIsMouseDown(true);
+  };
 
-   const handleMouseUp = () => {
-     setIsMouseDown(false);
-   };
+  const handleMouseUp = () => {
+    setIsMouseDown(false);
+  };
   const actFollower = () => {
-    followerCounter === 100500 ? setFollowerCounter(followerCounter + 1) : setFollowerCounter(followerCounter - 1);
+    followerCounter === 100500
+      ? setFollowerCounter(followerCounter + 1)
+      : setFollowerCounter(followerCounter - 1);
   };
   return (
     <div className="App">
       <header className="App-header">
         <div className="container">
           <div className="wrapperStatistics">
-            <span className="tweetsText">777 tweets</span>
-            <span className="followersText">
+            <span className="tweetsFollowersText">777 tweets</span>
+            <span className="tweetsFollowersText">
               {followerCounter.toLocaleString()}followers
             </span>
           </div>
@@ -34,8 +36,9 @@ function App() {
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
           >
-            <span className="buttonFollowSpan">Follow</span>
-            <span className="buttonFollowSpan">Following</span>
+            <span className="buttonFollowSpan">
+              {isMouseDown ? 'Following' : 'Follow'}
+            </span>
           </button>
         </div>
       </header>

@@ -25,7 +25,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
@@ -48,12 +47,12 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height: 460px;
 }
 .buttonFollow {
   position: absolute;
   width: 196px;
   height: 50px;
-  background-color: red;
   background-color: #ebd8ff;
   padding: 14px 28px;
   bottom: 36px;
@@ -61,9 +60,9 @@ body {
   border-radius: 10.3108px;
   cursor: pointer;
 }
- 
+
 .buttonFollow.active {
-  background-color: #5cd3a8
+  background-color: #5cd3a8;
 }
 .buttonFollowSpan {
   font-family: 'Montserrat';
@@ -84,7 +83,15 @@ body {
   align-items: center;
   bottom: 112px;
 }
-.tweetsText {
+.tweetsFollowersText {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: #ebd8ff;
 }
-.followersText {
+.tweetsFollowersText:nth-of-type(2) {
+  margin-top: 16px;
 }
