@@ -10,11 +10,9 @@ function App() {
   }, [followerCounter]);
   
   const actFollower = () => {
-    if (followerCounter === 100500) {
-      setFollowerCounter(100501);
-    } else {
-      setFollowerCounter(100500);
-    }
+    setFollowerCounter((prevCounter) =>
+      prevCounter === 100500 ? 100501 : 100500,
+    );
     
   };
   console.log(followerCounter);
