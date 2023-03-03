@@ -1,22 +1,33 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
-  const [followerCounter, setFollowerCounter] = useState(100500);
-  const [isMouseDown, setIsMouseDown] = useState(false);
-
-  const handleMouseDown = () => {
-    setIsMouseDown(true);
-  };
-
-  const handleMouseUp = () => {
-    setIsMouseDown(false);
-  };
+  const [followerCounter, setFollowerCounter] = useState(localStorage.getItem('followerCounter') || (100500).toLocaleString());
+  const [isMouseDown, setIsMouseDown] = useState(
+    JSON.parse(localStorage.getItem('isMouseDown')) || false,
+  );
+  
+  useEffect(() => {
+    localStorage.setItem('followerCounter', (followerCounter).toLocaleString());
+    localStorage.setItem('isMouseDown', isMouseDown);
+  }, [followerCounter, isMouseDown]);
+  
   const actFollower = () => {
-    followerCounter === 100500
-      ? setFollowerCounter(followerCounter + 1)
-      : setFollowerCounter(followerCounter - 1);
+    if (followerCounter === 100500) {
+      setFollowerCounter(100501);
+      setIsMouseDown(true);
+      // save('followerCounter', followerCounter);
+      // save('isMouseDown', isMouseDown);
+    } else {
+      // localStorage.setItem('followerCounter', followerCounter);
+      // localStorage.setItem('isMouseDown', isMouseDown);
+      setFollowerCounter(100500);
+      setIsMouseDown(false);
+      // save('followerCounter', followerCounter);
+      // save('isMouseDown', isMouseDown);
+    }
+    
   };
   return (
     <div className="App">
@@ -25,7 +36,7 @@ function App() {
           <div className="wrapperStatistics">
             <span className="tweetsFollowersText">777 tweets</span>
             <span className="tweetsFollowersText">
-              {followerCounter.toLocaleString()}followers
+              {followerCounter.toLocaleString()} followers
             </span>
           </div>
           <img src={logo} className="App-logo" alt="logo" />
@@ -33,8 +44,6 @@ function App() {
             type="button"
             onClick={actFollower}
             className={`buttonFollow ${isMouseDown ? 'active' : ''}`}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
           >
             <span className="buttonFollowSpan">
               {isMouseDown ? 'Following' : 'Follow'}
@@ -47,3 +56,28 @@ function App() {
 }
 
 export default App;
+// const save = (key, value) => {
+  //   try {
+  //     const serializedState = JSON.stringify(value);
+  //     localStorage.setItem(key, serializedState);
+  //   } catch (error) {
+  //     console.error('Set state error: ', error.message);
+  //   }
+  // };
+
+  // const load = (key) => {
+  //   try {
+  //     const serializedState = localStorage.getItem(key);
+  //     return serializedState === null ? undefined : JSON.parse(serializedState);
+  //   } catch (error) {
+  //     console.error('Get state error: ', error.message);
+  //   }
+  // };
+  // useEffect(() => {
+  //   // load('followerCounter');
+  //   // load('isMouseDown');
+  //   // setFollowerCounter(localStorage.getItem('followerCounter'));
+  //   // setIsMouseDown(localStorage.getItem('isMouseDown'));
+  //   console.log(localStorage.getItem('isMouseDown'));
+  //   console.log(localStorage.getItem('followerCounter'));
+  // }, []);
