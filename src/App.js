@@ -3,32 +3,21 @@ import './App.css';
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [followerCounter, setFollowerCounter] = useState(localStorage.getItem('followerCounter') || (100500).toLocaleString());
-  const [isMouseDown, setIsMouseDown] = useState(
-    JSON.parse(localStorage.getItem('isMouseDown')) || false,
-  );
+  const [followerCounter, setFollowerCounter] = useState(Number(localStorage.getItem('followerCounter')) || 100500);
   
   useEffect(() => {
-    localStorage.setItem('followerCounter', (followerCounter).toLocaleString());
-    localStorage.setItem('isMouseDown', isMouseDown);
-  }, [followerCounter, isMouseDown]);
+    localStorage.setItem('followerCounter', followerCounter);
+  }, [followerCounter]);
   
   const actFollower = () => {
     if (followerCounter === 100500) {
       setFollowerCounter(100501);
-      setIsMouseDown(true);
-      // save('followerCounter', followerCounter);
-      // save('isMouseDown', isMouseDown);
     } else {
-      // localStorage.setItem('followerCounter', followerCounter);
-      // localStorage.setItem('isMouseDown', isMouseDown);
       setFollowerCounter(100500);
-      setIsMouseDown(false);
-      // save('followerCounter', followerCounter);
-      // save('isMouseDown', isMouseDown);
     }
     
   };
+  console.log(followerCounter);
   return (
     <div className="App">
       <header className="App-header">
@@ -43,10 +32,12 @@ function App() {
           <button
             type="button"
             onClick={actFollower}
-            className={`buttonFollow ${isMouseDown ? 'active' : ''}`}
+            className={`buttonFollow ${
+              followerCounter === 100501 ? 'active' : ''
+            }`}
           >
             <span className="buttonFollowSpan">
-              {isMouseDown ? 'Following' : 'Follow'}
+              {followerCounter === 100501 ? 'Following' : 'Follow'}
             </span>
           </button>
         </div>
@@ -56,28 +47,4 @@ function App() {
 }
 
 export default App;
-// const save = (key, value) => {
-  //   try {
-  //     const serializedState = JSON.stringify(value);
-  //     localStorage.setItem(key, serializedState);
-  //   } catch (error) {
-  //     console.error('Set state error: ', error.message);
-  //   }
-  // };
 
-  // const load = (key) => {
-  //   try {
-  //     const serializedState = localStorage.getItem(key);
-  //     return serializedState === null ? undefined : JSON.parse(serializedState);
-  //   } catch (error) {
-  //     console.error('Get state error: ', error.message);
-  //   }
-  // };
-  // useEffect(() => {
-  //   // load('followerCounter');
-  //   // load('isMouseDown');
-  //   // setFollowerCounter(localStorage.getItem('followerCounter'));
-  //   // setIsMouseDown(localStorage.getItem('isMouseDown'));
-  //   console.log(localStorage.getItem('isMouseDown'));
-  //   console.log(localStorage.getItem('followerCounter'));
-  // }, []);
